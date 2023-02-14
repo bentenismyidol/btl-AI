@@ -21,7 +21,7 @@ public class PictureFuzzySet {
         // Get the output variable
         Variable Direction = functionBlock.getVariable("Direction");
         double result = Direction.getValue();
-        // Print the output value (for test purpose)
+        // Print the output value (for testing purpose)
         System.out.println("Direction Index: " + result);
     }
 }
