@@ -1,10 +1,6 @@
 package robot;
 
-import com.hg.AStar;
-import com.hg.ISS;
-import com.hg.Matrix;
-import com.hg.Node;
-import com.hg.UAPP;
+import com.hg.*;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -66,6 +62,8 @@ public class Board extends Thread {
     static int robot_lau_nha_buoc, robot_lau_nha_x1, robot_lau_nha_y1, robot_lau_nha_x2, robot_lau_nha_y2;
     static boolean robot_lau_nha_NDL_b1, robot_lau_nha_NDL_b2, robot_lau_nha_NDL_b3, robot_lau_nha_NDL_b4;
     static int[][] robot_lau_nha_stack, robot_lau_nha_duong_di;
+
+    static PictureFuzzySet PFS = new PictureFuzzySet();
 
     JMenuBar menuBar = new JMenuBar();
 
@@ -279,12 +277,22 @@ public class Board extends Thread {
                     public void mousePressed(MouseEvent me) {
                         if (a[J - (24 - size) / 2][I - (24 - size) / 2] == 0) {
                             if (Robot_Tim_duong_buoc == 1) {
-                                a[J - (24 - size) / 2][I - (24 - size) / 2] = 1;
-                                u[J][I].setX();
-                                Node node = matrix.getValue(J - (24 - size) / 2, I - (24 - size) / 2);
-                                node.setEnabled(false);
-                                node.setValue(1);
-                                UAPP.print("(" + (J - (24 - size) / 2) + ", " + (I - (24 - size) / 2) + ")" + node.isEnabled());
+                                if (PFS.FuzzyLogic() >= 10) {
+                                    a[J - (24 - size) / 2][I - (24 - size) / 2] = 1;
+                                    u[J][I].setX();
+                                    Node node = matrix.getValue(J - (24 - size) / 2, I - (24 - size) / 2);
+                                    node.setEnabled(false);
+                                    node.setValue(1);
+                                    UAPP.print("(" + (J - (24 - size) / 2) + ", " + (I - (24 - size) / 2) + ")" + node.isEnabled());
+                                }
+                                else {
+                                    a[J - (24 - size) / 2][I - (24 - size) / 2] = 0;
+                                    u[J][I].setgap(); // CÁI SETGAP() NÀY LÀ SET ẢNH Ô ĐO THÀNH Ô VUÔNG VÀNG BÌNH THƯỜNG Ý,CÓ THỂ THAY ĐÔI ẢNH NÀY TÙY THEO SỞ THÍCH,VỀ CƠ BẢN LÀ COS THỂ MOD ĐC
+                                    Node node = matrix.getValue(J - (24 - size) / 2, I - (24 - size) / 2);
+                                    node.setEnabled(false);
+                                    node.setValue(0);
+                                    UAPP.print("(" + (J - (24 - size) / 2) + ", " + (I - (24 - size) / 2) + ")" + node.isEnabled());
+                                }
                             } else if (Robot_Tim_duong_buoc == 2 && Robot_Tim_duong_NDL_b2 == false) {  //THỰC HIỆN BƯỚC X TIẾP THEO V ĐIỀU KIỆN ĐỂ SẼ BÁO LỖI NẾU BƯỚC TRÊN CHƯA ĐƯỢC NHẬP VÀO
                                 Robot_Tim_duong_x1 = J - (24 - size) / 2;
                                 Robot_Tim_duong_y1 = I - (24 - size) / 2;

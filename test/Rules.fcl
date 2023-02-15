@@ -1,29 +1,27 @@
 FUNCTION_BLOCK Rules
 
 VAR_INPUT
-  x : REAL;
+  Obstacles : REAL;
 END_VAR
 
 VAR_OUTPUT
-  y : REAL;
+  Direction : REAL;
 END_VAR
 
 FUZZIFY Obstacles
-  TERM Avoidable := (0, 0) (1, 1) (2, 0);
-  TERM medium := (1, 0) (2, 1) (3, 0);
-  TERM Un-Avoidable := (2, 0) (3, 1) (4, 0);
+  TERM Soft := (20, 0) (25, 1) (30, 0);
+  TERM Hard := (20, 0) (25, 1) (30, 1);
 END_FUZZIFY
 
 DEFUZZIFY Direction
-  TERM Pass := (0, 0) (1, 1) (2, 0);
-  TERM Avoid := (1, 0) (2, 1) (3, 0);
+  TERM Pass := (0, 0) (10, 1) (20, 0);
+  TERM Avoid := (0, 0) (10, 0) (20, 1);
   METHOD : COG;
 END_DEFUZZIFY
 
 RULEBLOCK MyRules
-  RULE 1: IF Obstacles IS Avoidable THEN Direction IS Pass;
-  RULE 2: IF Obstacles IS Un-Avoidable THEN Direction IS Avoid;
-  RULE 3: IF x IS high THEN y IS high;
+  RULE 1: IF Obstacles IS Soft THEN Direction IS Pass;
+  RULE 2: IF Obstacles IS Hard THEN Direction IS Avoid;
 END_RULEBLOCK
 END_FUNCTION_BLOCK
 
