@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Matrix extends XMatrix<Node> {
-
+    PictureFuzzySet PFS = new PictureFuzzySet();
     private AStarCostEvaluator evaluator = new AStarCostEvaluator();
 
     private Node start;
@@ -159,6 +159,7 @@ public class Matrix extends XMatrix<Node> {
                 edge.setNodeB(neighbor);
                 node.addEdge(edge);
                 edge.setWeight(evaluator.evaluateWeight(edge));
+                //edge.setWeight((int) PFS.FuzzyLogic());
             }
         }
     }
@@ -172,6 +173,7 @@ public class Matrix extends XMatrix<Node> {
         edge.setNodeB(neighbor);
         node.addEdge(edge);
         edge.setWeight(evaluator.evaluateWeight(edge));
+        //edge.setWeight((int) PFS.FuzzyLogic());
     }
 
     private void build4Edges(int row, int col) {

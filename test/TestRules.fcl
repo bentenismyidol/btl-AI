@@ -1,0 +1,33 @@
+FUNCTION_BLOCK dijkstra
+
+VAR_INPUT
+    start : REAL; // start node
+    goal : REAL;  // goal node
+    n : INT;      // number of nodes
+    obstacle : REAL;
+END_VAR
+
+FUZZIFY obstacle
+    TERM clear := (0, 1) (1, 0);
+    TERM obstacle := (0, 0) (1, 1);
+END_FUZZIFY
+
+DEFUZZIFY distance
+    TERM short := (0, 1) (10, 0);
+    TERM medium := (0, 0) (10, 1) (20, 0);
+    TERM long := (10, 0) (20, 1);
+    METHOD : COG;
+END_DEFUZZIFY
+
+RULEBLOCK dijkstra_rules
+    AND : MIN;
+    ACT : MIN;
+    ACCU : MAX;
+
+    RULE 1 : IF obstacle IS clear THEN distance IS short;
+    RULE 2 : IF obstacle IS obstacle THEN distance IS long;
+    RULE 3 : IF obstacle IS obstacle AND distance IS medium THEN distance IS long;
+    RULE 4 : IF obstacle IS clear AND distance IS long THEN distance IS medium;
+END_RULEBLOCK
+
+END_FUNCTION_BLOCK

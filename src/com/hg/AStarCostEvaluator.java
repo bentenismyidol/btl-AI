@@ -9,10 +9,10 @@ package com.hg;
  *
  */
 public class AStarCostEvaluator {
-
+	PictureFuzzySet PFS = new PictureFuzzySet();
 	volatile boolean enabled = true;
 	final int factor = 10;
-
+	//final int factor = (int) PFS.FuzzyLogic();
 	public int evaluateWeight(Edge edge) {
                 Node nodeA =  edge.getNodeA();
 		Node nodeB =  edge.getNodeB();

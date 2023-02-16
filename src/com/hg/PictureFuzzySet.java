@@ -9,6 +9,16 @@ import java.util.Random;
 public class PictureFuzzySet {
     private double result;
 
+    private double Obstacles_value;
+
+    public double getObstacles_value() {
+        return Obstacles_value;
+    }
+
+    public void setObstacles_value(double obstacles_value) {
+        Obstacles_value = obstacles_value;
+    }
+
     public double getResult() {
         return result;
     }
@@ -27,9 +37,10 @@ public class PictureFuzzySet {
             // Set the input variable
 
                 Random rd = new Random();
-                double n = rd.nextDouble() * 30.0;
+                double n = rd.nextDouble();
+                double a = rd.nextDouble() * 100;
                 functionBlock.setVariable("Obstacles", n);
-
+                functionBlock.setVariable("Distance",a);
                 // Evaluate the FCL
                 functionBlock.evaluate();
 

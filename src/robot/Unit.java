@@ -4,7 +4,10 @@
  */
 package robot;
 
+import com.hg.PictureFuzzySet;
+
 import java.awt.Color;
+import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
@@ -13,7 +16,7 @@ import javax.swing.JLabel;
  * @author ifletyougo
  */
 public class Unit extends JLabel {
-
+    PictureFuzzySet PFS = new PictureFuzzySet();
     int x, area;
     ImageIcon batdau = new ImageIcon("batdau.png");
     ImageIcon gap = new ImageIcon("gap.png");
@@ -41,10 +44,30 @@ public class Unit extends JLabel {
 
     ;
     
+//    public void setX() {
+//        isObstacle = true;
+//        x = 1;
+//        setIcon(X);
+//    }
     public void setX() {
         isObstacle = true;
         x = 1;
-        setIcon(X);
+        Random rd = new Random();
+        int i = rd.nextInt(10);
+            if (i<=3){
+                setIcon(X);
+            }
+            else if (i > 3 && i <=6 ) {
+                setIcon(O);
+            }
+            else if (i > 6) {
+                setIcon(vatcan);
+            }
+    }
+    public void setX3() {
+        isObstacle = true;
+        x = 1;
+        setIcon(vatcan);
     }
 
     ;
@@ -123,6 +146,11 @@ public class Unit extends JLabel {
     public void setgap() {
         isObstacle = false;
         setIcon(gap);
+    }
+
+    public void setSoftObstacle() {
+        isObstacle = true;
+        setIcon(NO);
     }
 
     public void setbatdau() {

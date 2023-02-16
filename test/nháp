@@ -1,0 +1,58 @@
+import java.util.*;
+
+public class DijkstraFuzzy {
+
+    private static final double OBSTACLE_WEIGHT = 100.0; // weight to assign to obstacles
+    private static final String FCL_FILE = "path-finding.fcl"; // path to the .fcl file
+
+    public static void main(String[] args) {
+        int[][] graph = { // adjacency matrix representing the graph
+            {0, 1, 0, 1},
+            {1, 0, 1, 1},
+            {0, 1, 0, 1},
+            {1, 1, 1, 0}
+        };
+        int start = 0; // start node
+        int end = 3; // end node
+        List<Integer> path = dijkstra(graph, start, end);
+        System.out.println("Shortest path: " + path);
+    }
+
+    public static List<Integer> dijkstra(int[][] graph, int start, int end) {
+        int n = graph.length; // number of nodes
+        double[] dist = new double[n]; // distance from start to each node
+        boolean[] visited = new boolean[n]; // whether each node has been visited
+        int[] prev = new int[n]; // previous node in the shortest path
+        Arrays.fill(dist, Double.POSITIVE_INFINITY); // initialize all distances to infinity
+        dist[start] = 0; // distance to start node is 0
+        FuzzyLogic fuzzyLogic = new FuzzyLogic(FCL_FILE); // create FuzzyLogic object
+        PriorityQueue<Integer> pq = new PriorityQueue<>(Comparator.comparingDouble(dist::get)); // priority queue to store unvisited nodes
+        pq.offer(start); // add start node to priority queue
+        while (!pq.isEmpty()) {
+            int u = pq.poll(); // node with shortest distance from start
+            visited[u] = true; // mark node as visited
+            if (u == end) { // if end node has been reached, return shortest path
+                List<Integer> path = new ArrayList<>();
+                while (u != start) {
+                    path.add(0, u);
+                    u = prev[u];
+                }
+                path.add(0, start);
+                return path;
+            }
+            for (int v = 0; v < n; v++) {
+                if (graph[u][v] == 1) { // if v is an obstacle, assign a high weight
+                    dist[v] = OBSTACLE_WEIGHT;
+                } else { // otherwise, use fuzzy weight based on distance
+                    double fuzzyWeight = fuzzyLogic.evaluate(dist[u]);
+                    double regularWeight = 1.0; // weight for regular (non-fuzzy) Dijkstra
+                    dist[v] = dist[u] + fuzzyWeight * regularWeight;
+                }
+                if (!visited[v]) { // if v has not been visited, add to priority queue
+                    pq.offer(v);
+                }
+            }
+        }
+        return null; // no path found
+    }
+}
