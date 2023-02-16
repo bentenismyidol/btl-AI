@@ -172,8 +172,8 @@ public class Matrix extends XMatrix<Node> {
         edge.setNodeA(node);
         edge.setNodeB(neighbor);
         node.addEdge(edge);
-        edge.setWeight(evaluator.evaluateWeight(edge));
-        //edge.setWeight((int) PFS.FuzzyLogic());
+        //edge.setWeight(evaluator.evaluateWeight(edge));
+        edge.setWeight((int) PFS.FuzzyLogic());
     }
 
     private void build4Edges(int row, int col) {

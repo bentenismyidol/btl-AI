@@ -1011,10 +1011,10 @@ public class Board extends Thread {
             Thread th = new Board.MyRunnable2();
             th.start();
             //test
-            System.out.println(dem);
-            Robot_Tim_duong_stack.display();
-            System.out.println(Robot_Tim_duong_stack.top);
-            System.out.println(PFS.FuzzyLogic());
+//            System.out.println(dem);
+//            Robot_Tim_duong_stack.display();
+//            System.out.println(Robot_Tim_duong_stack.top);
+//            System.out.println(PFS.FuzzyLogic());
             //
         } else {
             System.out.print("khong co duong di = " + b[Robot_Tim_duong_x2][Robot_Tim_duong_y2]);

@@ -14,7 +14,7 @@ import java.util.List;
  *
  */
 public class AStarPathAlgorithm {
-
+    PictureFuzzySet PFS = new PictureFuzzySet();
     private AStarCostEvaluator evaluator;
     private Matrix matrix;
 
